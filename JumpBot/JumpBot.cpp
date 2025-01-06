@@ -12,7 +12,7 @@ int main()
     SDL_Window* window = nullptr;
     SDL_Surface* screenSurface = nullptr;
 
-    if (SDL:_Init(SDL_INIT_VIDEO) < 0) {
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         std::cout << "coul;d not initialize SDL2!" << std::endl;
         std::cout << SDL_GetError() << std::endl;
         return 1;
@@ -20,7 +20,7 @@ int main()
     window = SDL_CreateWindow(
         "Hello_SDL2", // Title
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, //X and Y of Position
-        screenWidth, screenHeight //Width and Height - This was defined as a constant at the start of the script
+        screenWidth, screenHeight, //Width and Height - This was defined as a constant at the start of the script
         SDL_WINDOW_SHOWN
     );
     if (window == NULL) {
@@ -31,7 +31,15 @@ int main()
     screenSurface = SDL_GetWindowSurface(window);
     SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 144, 238, 144));
     SDL_UpdateWindowSurface(window);
-    SDL_Delay(2000);
+    bool quitting = false;
+    while (quitting != true) {
+        SDL_Event e;
+        while (SDL_PollEvent(&e)) {
+            if (e.type == SDL_QUIT) {
+                quitting = true;
+            }
+        }
+    }
     SDL_DestroyWindow(window);
     SDL_Quit();
     return 0;
