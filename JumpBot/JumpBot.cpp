@@ -12,7 +12,7 @@ int main()
     SDL_Window* window = nullptr;
     SDL_Surface* screenSurface = nullptr;
 
-    if (SD:_Init(SDL_INIT_VIDEO) < 0) {
+    if (SDL:_Init(SDL_INIT_VIDEO) < 0) {
         std::cout << "coul;d not initialize SDL2!" << std::endl;
         std::cout << SDL_GetError() << std::endl;
         return 1;
@@ -25,8 +25,14 @@ int main()
     );
     if (window == NULL) {
         std::cout << "Could not initialize window!" << std::endl;
-        std::cout << SDL_GetError() << std:endl;
+        std::cout << SDL_GetError() << std::endl;
         return 1;
     }
-
+    screenSurface = SDL_GetWindowSurface(window);
+    SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 144, 238, 144));
+    SDL_UpdateWindowSurface(window);
+    SDL_Delay(2000);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+    return 0;
 }
