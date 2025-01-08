@@ -1,23 +1,24 @@
 #pragma once
 
-#include <iostream>
-#include <string>
-
 #define SDL_MAIN_HANDLED
 #include <SDL.h>
+#include <iostream>
+#include <string>
 
 const int screenWidth = 800;
 const int screenHeight = 600;
 
-
 class GameLoop
 {
-public: int init();
+public:
+	int init();
 
-	  void update();
-	  void render();
+	void update();
+	void render();
 
-	  void clean();
+	bool keepAlive();
+
+	void clean();
 private:
 
 };
