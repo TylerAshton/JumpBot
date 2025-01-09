@@ -43,7 +43,7 @@ private:
 	float speed = 8.0f;
 
 	int x = portion.x;
-	int y = -portion.y;
+	int y = 600 - portion.y;
 
 	int windowWidth = 800;
 	int windowHeight = 600;

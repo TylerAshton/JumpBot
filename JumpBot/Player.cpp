@@ -14,13 +14,15 @@ void Player::init()
 		return;
 	}
 	texture = SDL_CreateTextureFromSurface(renderer, image);
-}
-
-void Player::render()
-{
+	
 	float playerWidth = 0.2f * (float)windowWidth;
 	portion.w = (int)playerWidth;
 	portion.h = (int)playerWidth;
 
+	portion.y = windowHeight - portion.h;
+}
+
+void Player::render()
+{
 	SDL_RenderCopy(renderer, texture, NULL, &portion);
 }
