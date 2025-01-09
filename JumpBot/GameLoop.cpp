@@ -1,6 +1,6 @@
 #include "GameLoop.h"
 
-bool kill;
+bool alive;
 
 int GameLoop::init()
 {
@@ -41,27 +41,44 @@ int GameLoop::init()
 
 void GameLoop::update()
 {
-
+	player->update();
 }
 
-void GameLoop::handleInput(SDL_Scancode& keyScanCode)
-{
-	switch (keyScanCode)
-	{
-	case SDL_SCANCODE_D:
-		player->moveRight();
-		break;
-	case SDL_SCANCODE_A:
-		player->moveLeft();
-		break;
-	case SDL_SCANCODE_SPACE:
-		player->moveDown();
-		break;
-	case SDL_SCANCODE_F:
-		kill = true;
-		break;
-	}
-}
+//void GameLoop::handleInput(SDL_Scancode& keyScanCode)
+//{
+//	if ()
+//	{
+//		player->moveRight();
+//	}
+//	if (SDL_SCANCODE_A)
+//	{
+//		player->moveLeft();
+//	}
+//	if (SDL_SCANCODE_SPACE)
+//	{
+//		player->moveUp();
+//	}
+//	if (SDL_SCANCODE_F)
+//	{
+//		alive = true;
+//	}
+//
+//	/*switch (keyScanCode)
+//	{
+//	case SDL_SCANCODE_D:
+//		player->moveRight();
+//		break;
+//	case SDL_SCANCODE_A:
+//		player->moveLeft();
+//		break;
+//	case SDL_SCANCODE_SPACE:
+//		player->moveUp();
+//		break;
+//	case SDL_SCANCODE_F:
+//		kill = true;
+//		break;
+//	}*/
+//}
 
 void GameLoop::render()
 {
@@ -80,9 +97,21 @@ bool GameLoop::keepAlive()
 			return false;
 		}
 
-		if (userInput.type == SDL_KEYDOWN) {
-			handleInput(userInput.key.keysym.scancode);
-			return !kill;
+		if (userInput.type == SDL_KEYDOWN)
+		{
+			if (userInput.type == SDL_KEYDOWN) {
+				switch (userInput.key.keysym.scancode)
+				{
+				case SDL_SCANCODE_F:
+					return false;
+					break;
+				default:
+					break;
+				}
+			}
+
+			/*handleInput(userInput.key.keysym.scancode);
+			return !alive;*/
 		}
 	}
 	return true;

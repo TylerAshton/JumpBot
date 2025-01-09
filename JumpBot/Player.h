@@ -3,11 +3,14 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <iostream>
+#include "Time.h"
 
 class Player
 {
 public:
 	Player(SDL_Renderer* sdlRenderer, int _windowWidth, int _windowHeight);
+
+	//double dt = Time::get_deltaTime();
 
 	void init();
 	void render();
@@ -16,39 +19,53 @@ public:
 
 	void moveRight()
 	{
-		portion.x += speed;
-		if (portion.x + portion.w >= windowWidth)
+		playerRect.x += speed * Time::get_deltaTime();
+		if (playerRect.x + playerRect.w >= windowWidth)
 		{
-			portion.x = windowWidth - portion.w;
+			playerRect.x = windowWidth - playerRect.w;
 		}
 	}
 	void moveLeft()
 	{
-		portion.x -= speed;
-		if (portion.x <= 0)
+		playerRect.x -= speed * Time::get_deltaTime();
+		if (playerRect.x <= 0)
 		{
-			portion.x = 0;
+			playerRect.x = 0;
 		}
 	}
-	void moveDown()
+	void moveUp()
 	{
-		portion.y += speed;
-		if (portion.y + portion.h >= windowHeight)
+		playerRect.y += speed * Time::get_deltaTime();
+		if (playerRect.y + playerRect.h >= windowHeight)
 		{
-			portion.y = windowHeight - portion.h;
+			playerRect.y = windowHeight - playerRect.h;
 		}
 	}
+
+	void set_playerPos(SDL_FPoint point)
+	{
+		playerRect = { point.x, point.y, playerRect.w, playerRect.h };
+	}
+
+	SDL_FPoint get_playerPos()
+	{
+		return SDL_FPoint{ playerRect.x, playerRect.y };
+	}
+
 
 private:
-	float speed = 8.0f;
+	float speed = 248.0f;
 
-	int x = portion.x;
-	int y = 600 - portion.y;
+	//SDL_Point playerPos;
+	//SDL_Rect playerRect;
+
+	//int x = portion.x;
+	//int y = 600 - portion.y;
 
 	int windowWidth = 800;
 	int windowHeight = 600;
 
-	SDL_Rect portion;
+	SDL_FRect playerRect;
 	SDL_Renderer* renderer = nullptr;
 	SDL_Texture* texture = nullptr;
 };

@@ -17,8 +17,6 @@ public:
 	void update();
 	void render();
 
-	void handleInput(SDL_Scancode& keyScanCode);
-
 	bool keepAlive();
 
 	void clean();

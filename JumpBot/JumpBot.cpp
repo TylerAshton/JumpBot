@@ -1,4 +1,5 @@
 #include "GameLoop.h"
+#include "Time.h"
 
 int main()
 {
@@ -11,6 +12,7 @@ int main()
 
     while (gameloop.keepAlive())
     {
+        Time::UpdateDeltaTime();
         gameloop.update();
         gameloop.render();
     }
