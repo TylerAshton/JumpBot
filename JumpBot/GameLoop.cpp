@@ -1,8 +1,6 @@
 #include "GameLoop.h"
 
-SDL_Window* window = nullptr;
-SDL_Surface* screenSurface = nullptr;
-SDL_Renderer* renderer = nullptr;
+bool kill;
 
 int GameLoop::init()
 {
@@ -35,6 +33,9 @@ int GameLoop::init()
 	}
 	screenSurface = SDL_GetWindowSurface(window);
 
+	player = new Player(renderer, screenWidth, screenHeight);
+	player->init();
+
 	return 0;
 }
 
@@ -43,9 +44,27 @@ void GameLoop::update()
 
 }
 
+void GameLoop::handleInput(SDL_Scancode& keyScanCode)
+{
+	switch (keyScanCode)
+	{
+	case SDL_SCANCODE_D:
+		player->moveRight();
+		break;
+	case SDL_SCANCODE_A:
+		player->moveLeft();
+		break;
+	case SDL_SCANCODE_F:
+		kill = true;
+		break;
+	}
+}
+
 void GameLoop::render()
 {
-
+	SDL_RenderClear(renderer);
+	player->render();
+	SDL_RenderPresent(renderer);
 }
 
 bool GameLoop::keepAlive()
@@ -59,13 +78,8 @@ bool GameLoop::keepAlive()
 		}
 
 		if (userInput.type == SDL_KEYDOWN) {
-			switch (userInput.key.keysym.scancode)
-			{
-			case SDL_SCANCODE_F:
-				break;
-			default:
-				break;
-			}
+			handleInput(userInput.key.keysym.scancode);
+			return !kill;
 		}
 	}
 	return true;
@@ -73,6 +87,7 @@ bool GameLoop::keepAlive()
 
 void GameLoop::clean()
 {
+	delete player;
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 }
