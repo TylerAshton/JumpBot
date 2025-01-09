@@ -21,8 +21,6 @@ void Player::render()
 	SDL_Rect portion = SDL_Rect();
 	portion.x = x;
 	portion.y = y;
-	portion.w = 120;
-	portion.h = 120;
 
 	float playerWidth = 0.2f * (float)windowWidth;
 	portion.w = (int)playerWidth;
