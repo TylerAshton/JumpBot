@@ -16,22 +16,39 @@ public:
 
 	void moveRight()
 	{
-		x += speed;
+		portion.x += speed;
+		if (portion.x + portion.w >= windowWidth)
+		{
+			portion.x = windowWidth - portion.w;
+		}
 	}
 	void moveLeft()
 	{
-		x -= speed;
+		portion.x -= speed;
+		if (portion.x <= 0)
+		{
+			portion.x = 0;
+		}
+	}
+	void moveDown()
+	{
+		portion.y += speed;
+		if (portion.y + portion.h >= windowHeight)
+		{
+			portion.y = windowHeight - portion.h;
+		}
 	}
 
 private:
-
-	int x = 0;
-	int y = 0;
 	float speed = 8.0f;
+
+	int x = portion.x;
+	int y = -portion.y;
 
 	int windowWidth = 800;
 	int windowHeight = 600;
 
+	SDL_Rect portion;
 	SDL_Renderer* renderer = nullptr;
 	SDL_Texture* texture = nullptr;
 };

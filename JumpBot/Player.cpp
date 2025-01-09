@@ -18,10 +18,6 @@ void Player::init()
 
 void Player::render()
 {
-	SDL_Rect portion = SDL_Rect();
-	portion.x = x;
-	portion.y = y;
-
 	float playerWidth = 0.2f * (float)windowWidth;
 	portion.w = (int)playerWidth;
 	portion.h = (int)playerWidth;

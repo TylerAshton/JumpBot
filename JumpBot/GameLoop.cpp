@@ -54,6 +54,9 @@ void GameLoop::handleInput(SDL_Scancode& keyScanCode)
 	case SDL_SCANCODE_A:
 		player->moveLeft();
 		break;
+	case SDL_SCANCODE_SPACE:
+		player->moveDown();
+		break;
 	case SDL_SCANCODE_F:
 		kill = true;
 		break;
