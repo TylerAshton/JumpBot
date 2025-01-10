@@ -36,6 +36,9 @@ int GameLoop::init()
 	player = new Player(renderer, screenWidth, screenHeight);
 	player->init();
 
+	tiledMap = std::unique_ptr<TiledMap>(new TiledMap(renderer, "Assets/tmss.png"));
+	tiledMap->init();
+
 	return 0;
 }
 
@@ -83,6 +86,7 @@ void GameLoop::update()
 void GameLoop::render()
 {
 	SDL_RenderClear(renderer);
+	tiledMap->render();
 	player->render();
 	SDL_RenderPresent(renderer);
 }
@@ -119,6 +123,8 @@ bool GameLoop::keepAlive()
 
 void GameLoop::clean()
 {
+	tiledMap->clean();
+
 	delete player;
 	SDL_DestroyWindow(window);
 	SDL_Quit();

@@ -140,11 +140,13 @@
     <ClCompile Include="GameLoop.cpp" />
     <ClCompile Include="JumpBot.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="TiledMap.cpp" />
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameLoop.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="TiledMap.h" />
     <ClInclude Include="Time.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
