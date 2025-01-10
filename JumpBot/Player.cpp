@@ -19,7 +19,7 @@ void Player::init()
 
 	playerRect = { 0, 0, playerRect.w, playerRect.h }; // Currently starts player at 0,0 (Bottom Left)
 
-	float playerWidth = 0.2f * (float)windowWidth; // Makes playerWidth = 20% of window size
+	float playerWidth = 0.2f * (float)screenResolution::get_screenWidth(); // Makes playerWidth = 20% of window size
 	playerRect.w = (int)playerWidth; // Just applies said changes
 	playerRect.h = (int)playerWidth; // Just applies said changes
 
@@ -30,9 +30,12 @@ void Player::update()
 {
 	const Uint8* input = SDL_GetKeyboardState(NULL);
 
-	if (input[SDL_Scancode::SDL_SCANCODE_SPACE])
+	if (get_playerPos().y <= 0) { isGrounded = true; yVelocity = 0.0f; } else { isGrounded = false; } // :)
+
+	if (input[SDL_Scancode::SDL_SCANCODE_SPACE] && isGrounded)
 	{
 		moveUp();
+		isGrounded = false;
 	}
 	if (input[SDL_Scancode::SDL_SCANCODE_A]) // TODO impliment controls here
 	{
@@ -42,11 +45,18 @@ void Player::update()
 	{
 		moveRight();
 	}
+
+	applyGravity();
+	applyVelocity();
+	if (playerRect.y >= screenResolution::get_screenHeight())
+	{
+		playerRect.y = screenResolution::get_screenHeight();
+	}
 }
 
 void Player::render()
 {
-	SDL_Rect offsetRect = { playerRect.x, windowHeight - playerRect.y - playerRect.h, playerRect.w, playerRect.h };
+	SDL_Rect offsetRect = { playerRect.x, screenResolution::get_screenHeight() - playerRect.y - playerRect.h, playerRect.w, playerRect.h }; // Fuck you Mr Top Left!
 	
 	//SDL_RenderCopy(renderer, texture, NULL, &playerRect);
 	SDL_RenderCopy(renderer, texture, NULL, &offsetRect);

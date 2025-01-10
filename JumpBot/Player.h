@@ -4,6 +4,7 @@
 #include <SDL_image.h>
 #include <iostream>
 #include "Time.h"
+#include "screenResolution.h"
 
 class Player
 {
@@ -19,15 +20,15 @@ public:
 
 	void moveRight()
 	{
-		playerRect.x += speed * Time::get_deltaTime();
-		if (playerRect.x + playerRect.w >= windowWidth)
+		playerRect.x += speed.x * Time::get_deltaTime();
+		if (playerRect.x + playerRect.w >= screenResolution::get_screenWidth())
 		{
-			playerRect.x = windowWidth - playerRect.w;
+			playerRect.x = screenResolution::get_screenWidth() - playerRect.w;
 		}
 	}
 	void moveLeft()
 	{
-		playerRect.x -= speed * Time::get_deltaTime();
+		playerRect.x -= speed.x * Time::get_deltaTime();
 		if (playerRect.x <= 0)
 		{
 			playerRect.x = 0;
@@ -35,10 +36,18 @@ public:
 	}
 	void moveUp()
 	{
-		playerRect.y += speed * Time::get_deltaTime();
-		if (playerRect.y + playerRect.h >= windowHeight)
-		{
-			playerRect.y = windowHeight - playerRect.h;
+		//playerRect.y += speed * Time::get_deltaTime();
+
+		yVelocity = speed.y;
+
+		
+	}
+
+	void applyGravity()
+	{
+		SDL_FPoint currentPos = get_playerPos();
+		if (currentPos.y > 0) {
+			yVelocity += gravity;
 		}
 	}
 
@@ -51,19 +60,24 @@ public:
 	{
 		return SDL_FPoint{ playerRect.x, playerRect.y };
 	}
-
+	
+	void applyVelocity() {
+		set_playerPos(SDL_FPoint{ get_playerPos().x , get_playerPos().y + (float)(yVelocity * Time::get_deltaTime())});
+	}
 
 private:
-	float speed = 248.0f;
+	bool isGrounded;
+
+	float yVelocity;
+
+	float gravity = -1.0f;
+	SDL_FPoint speed = { 248.0f, 2000.0f };
 
 	//SDL_Point playerPos;
 	//SDL_Rect playerRect;
 
 	//int x = portion.x;
 	//int y = 600 - portion.y;
-
-	int windowWidth = 800;
-	int windowHeight = 600;
 
 	SDL_FRect playerRect;
 	SDL_Renderer* renderer = nullptr;

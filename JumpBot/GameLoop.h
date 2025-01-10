@@ -7,9 +7,7 @@
 #include <string>
 #include "Player.h"
 #include "TiledMap.h"
-
-const int screenWidth = 800;
-const int screenHeight = 600;
+#include "screenResolution.h"
 
 class GameLoop
 {

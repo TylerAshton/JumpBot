@@ -14,7 +14,7 @@ int GameLoop::init()
 	window = SDL_CreateWindow(
 		"Game Window :3",
 		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-		screenWidth, screenHeight,
+		screenResolution::get_screenWidth(), screenResolution::get_screenHeight(),
 		SDL_WINDOW_SHOWN
 	);
 	if (window == NULL)
@@ -33,7 +33,7 @@ int GameLoop::init()
 	}
 	screenSurface = SDL_GetWindowSurface(window);
 
-	player = new Player(renderer, screenWidth, screenHeight);
+	player = new Player(renderer, screenResolution::get_screenWidth(), screenResolution::get_screenHeight());
 	player->init();
 
 	tiledMap = std::unique_ptr<TiledMap>(new TiledMap(renderer, "Assets/tmss.png"));
