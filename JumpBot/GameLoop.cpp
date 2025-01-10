@@ -33,17 +33,38 @@ int GameLoop::init()
 	}
 	screenSurface = SDL_GetWindowSurface(window);
 
+	platMan = new PlatformManager();
+
 	player = new Player(renderer, screenResolution::get_screenWidth(), screenResolution::get_screenHeight());
 	player->init();
 
 	tiledMap = std::unique_ptr<TiledMap>(new TiledMap(renderer, "Assets/tmss.png"));
 	tiledMap->init();
 
+	platform = std::unique_ptr <Platform>(new Platform(renderer, player, SDL_FPoint{0,100}));
+	platform->init();
+
+	platMan->platforms.push_back(std::move(platform));
+
+	platform1 = std::unique_ptr <Platform>(new Platform(renderer, player, SDL_FPoint{ 200,200}));
+	platform1->init();
+
+	platMan->platforms.push_back(std::move(platform1));
+
+	platform2 = std::unique_ptr <Platform>(new Platform(renderer, player, SDL_FPoint{ 350,400 }));
+	platform2->init();
+
+	platMan->platforms.push_back(std::move(platform2));
+
+	//platMan->addPlat(platform);
+
 	return 0;
 }
 
 void GameLoop::update()
 {
+	platMan->update();
+	//platform->update();
 	player->update();
 }
 
@@ -86,8 +107,12 @@ void GameLoop::update()
 void GameLoop::render()
 {
 	SDL_RenderClear(renderer);
+	
 	tiledMap->render();
+	platMan->render();
+	//platform->render();
 	player->render();
+	
 	SDL_RenderPresent(renderer);
 }
 

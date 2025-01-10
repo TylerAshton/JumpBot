@@ -17,9 +17,10 @@ void Player::init()
 	}
 	texture = SDL_CreateTextureFromSurface(renderer, image);
 
-	playerRect = { 0, 0, playerRect.w, playerRect.h }; // Currently starts player at 0,0 (Bottom Left)
-
 	float playerWidth = 0.2f * (float)screenResolution::get_screenWidth(); // Makes playerWidth = 20% of window size
+
+	playerRect = { ((float)screenResolution::get_screenWidth() - playerWidth) / 2, 0, playerRect.w, playerRect.h}; // Currently starts player at 0,0 (Bottom Left)
+
 	playerRect.w = (int)playerWidth; // Just applies said changes
 	playerRect.h = (int)playerWidth; // Just applies said changes
 
@@ -60,4 +61,10 @@ void Player::render()
 	
 	//SDL_RenderCopy(renderer, texture, NULL, &playerRect);
 	SDL_RenderCopy(renderer, texture, NULL, &offsetRect);
+}
+
+void Player::iHitSmth()
+{
+	Player::moveUp();
+	Player::applyVelocity();
 }

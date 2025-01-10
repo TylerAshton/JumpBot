@@ -11,12 +11,16 @@ class Player
 public:
 	Player(SDL_Renderer* sdlRenderer, int _windowWidth, int _windowHeight);
 
+	float yVelocity;
+
 	//double dt = Time::get_deltaTime();
 
 	void init();
 	void render();
 	void update();
 	void clean();
+
+	void iHitSmth();
 
 	void moveRight()
 	{
@@ -39,8 +43,6 @@ public:
 		//playerRect.y += speed * Time::get_deltaTime();
 
 		yVelocity = speed.y;
-
-		
 	}
 
 	void applyGravity()
@@ -65,10 +67,13 @@ public:
 		set_playerPos(SDL_FPoint{ get_playerPos().x , get_playerPos().y + (float)(yVelocity * Time::get_deltaTime())});
 	}
 
+	SDL_FRect* get_playerRect()
+	{
+		return &playerRect;
+	}
+
 private:
 	bool isGrounded;
-
-	float yVelocity;
 
 	float gravity = -1.0f;
 	SDL_FPoint speed = { 248.0f, 2000.0f };
