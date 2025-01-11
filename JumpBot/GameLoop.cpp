@@ -5,6 +5,8 @@ bool alive;
 int GameLoop::init()
 {
 
+	
+
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		std::cout << "could not init SDL!" << std::endl;
@@ -31,30 +33,28 @@ int GameLoop::init()
 		std::cout << SDL_GetError() << std::endl;
 		return -1;
 	}
-	screenSurface = SDL_GetWindowSurface(window);
-
-	platMan = new PlatformManager();
+	screenSurface = SDL_GetWindowSurface(window);	
 
 	player = new Player(renderer, screenResolution::get_screenWidth(), screenResolution::get_screenHeight());
 	player->init();
 
+	platMan = new PlatformManager(renderer, player);
+	platMan->init();
+
 	tiledMap = std::unique_ptr<TiledMap>(new TiledMap(renderer, "Assets/tmss.png"));
-	tiledMap->init();
+	//tiledMap->init();
 
-	platform = std::unique_ptr <Platform>(new Platform(renderer, player, SDL_FPoint{0,100}));
-	platform->init();
+	//platform = std::unique_ptr <Platform>(new Platform(renderer, player, SDL_FPoint{0,100}));
 
-	platMan->platforms.push_back(std::move(platform));
+	//platMan->platforms.push_back(std::move(platform));
 
-	platform1 = std::unique_ptr <Platform>(new Platform(renderer, player, SDL_FPoint{ 200,200}));
-	platform1->init();
+	//platform1 = std::unique_ptr <Platform>(new Platform(renderer, player, SDL_FPoint{ 200,200}));
 
-	platMan->platforms.push_back(std::move(platform1));
+	//platMan->platforms.push_back(std::move(platform1));
 
-	platform2 = std::unique_ptr <Platform>(new Platform(renderer, player, SDL_FPoint{ 350,400 }));
-	platform2->init();
+	//platform2 = std::unique_ptr <Platform>(new Platform(renderer, player, SDL_FPoint{ 350,400 }));
 
-	platMan->platforms.push_back(std::move(platform2));
+	//platMan->platforms.push_back(std::move(platform2));
 
 	//platMan->addPlat(platform);
 
@@ -108,6 +108,8 @@ void GameLoop::render()
 {
 	SDL_RenderClear(renderer);
 	
+	SDL_SetRenderDrawColor(renderer, 18, 53, 36, 255);
+
 	tiledMap->render();
 	platMan->render();
 	//platform->render();
