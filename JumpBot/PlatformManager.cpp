@@ -1,4 +1,5 @@
 #include "PlatformManager.h"
+#include <cstdlib>
 
 PlatformManager::PlatformManager(SDL_Renderer* sdlRenderer, Player* Platplayer)
 {
@@ -9,7 +10,7 @@ PlatformManager::PlatformManager(SDL_Renderer* sdlRenderer, Player* Platplayer)
 int PlatformManager::init()
 {
 	for (int i = 0; i < 3; i++) {
-		addPlat(std::unique_ptr <Platform>(new Platform(renderer, player, SDL_FPoint{ 0, (float)100 * (i+1) })));
+		addPlat(std::unique_ptr <Platform>(new Platform(renderer, player, SDL_FPoint{ 0, (float)(rand() % 101)})));
 	}
 
 	for (auto& plat : platforms)
