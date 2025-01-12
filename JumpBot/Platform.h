@@ -17,9 +17,9 @@ public:
 	void clean();
 
 	void checkCollider();
-
-private:
 	SDL_FRect collider;
+private:
+	
 	SDL_Renderer* renderer = nullptr;
 	SDL_Texture* texture = nullptr;
 	SDL_FRect* playerRect;

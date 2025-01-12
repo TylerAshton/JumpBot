@@ -13,7 +13,10 @@ int PlatformManager::init()
 	srand(time(0));
 
 	for (int i = 0; i < 3; i++) {
-		addPlat(std::unique_ptr <Platform>(new Platform(renderer, player, SDL_FPoint{ (float)(rand() % screenResolution::get_screenWidth() + 1 - 100), (float)(rand() % screenResolution::get_screenHeight()+1 - 50)})));
+		if (i == 0) {
+			addPlat(std::unique_ptr <Platform>(new Platform(renderer, player, SDL_FPoint{ (float)(rand() % screenResolution::get_screenWidth() + 1 - 100), (float)200 })));
+		}
+		addPlat(std::unique_ptr <Platform>(new Platform(renderer, player, SDL_FPoint{ (float)(rand() % screenResolution::get_screenWidth() + 1 - 100), (float)(rand() % (int)platforms.at(i - 1).get()->collider.y) })));
 	}
 
 	for (auto& plat : platforms)
