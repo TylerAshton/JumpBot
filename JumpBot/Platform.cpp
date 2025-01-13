@@ -30,8 +30,6 @@ void Platform::checkCollider()
 
 	if (SDL_IntersectFRect(playerRect, &collider, &nullRect) && playerInst->yVelocity <= 0 && playerInst->get_playerPos().y > collider.y)
 	{
-		std::cout << playerInst->get_playerPos().y << std::endl;
-		std::cout << collider.y + collider.h << std::endl;
 		playerInst->iHitSmth();
 	}
 }

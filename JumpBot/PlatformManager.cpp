@@ -12,16 +12,39 @@ int PlatformManager::init()
 {
 	srand(time(0));
 
-	for (int i = 0; i < 3; i++) {
-		if (i == 0) {
-			addPlat(std::unique_ptr <Platform>(new Platform(renderer, player, SDL_FPoint{ (float)(rand() % screenResolution::get_screenWidth() + 1 - 100), (float)200 })));
-		}
-		addPlat(std::unique_ptr <Platform>(new Platform(renderer, player, SDL_FPoint{ (float)(rand() % screenResolution::get_screenWidth() + 1 - 100), (float)(rand() % (int)platforms.at(i - 1).get()->collider.y) })));
-	}
+	int previousY;
+	int previousX;
 
-	for (auto& plat : platforms)
+	int newY;
+	int newX;
+
+	int playerDim = 100;
+
+	for (int i = 0; i < 10; i++)
 	{
-		plat->init();
+		if (i == 0) {
+			addPlat(std::unique_ptr <Platform>(new Platform(renderer, player, SDL_FPoint{ (float)(rand() % (screenResolution::get_screenWidth() + 1 - playerDim)), (float)200 })));
+			platforms[i]->init();
+		}
+		else
+		{
+			previousY = platforms.at(i - 1).get()->collider.y;
+			previousX = platforms.at(i - 1).get()->collider.x;
+			
+			newX = ( -250 + rand() % 501) + previousX;
+
+			while ((newX < 0) || (newX > screenResolution::get_screenWidth() - playerDim))
+			{
+				newX = (-250 + rand() % 501) + previousX;
+			}
+
+			std::cout << newX << std::endl;
+
+			addPlat(std::unique_ptr <Platform>(new Platform(renderer, player, SDL_FPoint{ (float)newX, (float)((previousY + 75 + rand() % (201)))})));
+
+			platforms[i]->init();
+		}
+		
 	}
 
 	return 0;
