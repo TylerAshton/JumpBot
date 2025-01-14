@@ -38,7 +38,7 @@ int GameLoop::init()
 	player = new Player(renderer, screenResolution::get_screenWidth(), screenResolution::get_screenHeight());
 	player->init();
 
-	platMan = new PlatformManager(renderer, player);
+	platMan = new PlatformManager(renderer, player, score);
 	platMan->init();
 
 	tiledMap = std::unique_ptr<TiledMap>(new TiledMap(renderer, "Assets/tmss.png"));

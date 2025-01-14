@@ -9,7 +9,7 @@ Player::Player(SDL_Renderer* sdlRenderer, int _windowWidth, int _windowHeight)
 
 void Player::init()
 {
-	SDL_Surface* image = IMG_Load("Assets/TestImage.png");
+	SDL_Surface* image = IMG_Load("Assets/player.png");
 	if (image == nullptr)
 	{
 		std::cout << "Failed to load Image!" << std::endl;
@@ -41,10 +41,12 @@ void Player::update()
 	if (input[SDL_Scancode::SDL_SCANCODE_A]) // TODO impliment controls here
 	{
 		moveLeft();
+		direction = SDL_FLIP_HORIZONTAL;
 	}
 	if (input[SDL_Scancode::SDL_SCANCODE_D])
 	{
 		moveRight();
+		direction = SDL_FLIP_NONE;
 	}
 
 	applyGravity();
@@ -60,7 +62,7 @@ void Player::render()
 	SDL_Rect offsetRect = { playerRect.x, screenResolution::get_screenHeight() - playerRect.y - playerRect.h, playerRect.w, playerRect.h }; // Fuck you Mr Top Left!
 	
 	//SDL_RenderCopy(renderer, texture, NULL, &playerRect);
-	SDL_RenderCopy(renderer, texture, NULL, &offsetRect);
+	SDL_RenderCopyEx(renderer, texture, NULL, &offsetRect,NULL, NULL, direction);
 }
 
 void Player::iHitSmth()

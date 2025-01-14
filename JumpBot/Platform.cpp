@@ -38,9 +38,12 @@ void Platform::render()
 {
 	SDL_FRect offsetRect = { collider.x, screenResolution::get_screenHeight() - collider.y - collider.h, collider.w, collider.h }; // Fuck you Mr Top Left!
 
+	SDL_Rect sourceRect = {100.0f,50.0f};
+
 	SDL_RenderCopyF(renderer, texture, NULL, &offsetRect);
 }
 
 void Platform::clean()
 {
+
 }

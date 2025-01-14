@@ -4,10 +4,11 @@
 
 bool startScroll = false;
 
-PlatformManager::PlatformManager(SDL_Renderer* sdlRenderer, Player* Platplayer)
+PlatformManager::PlatformManager(SDL_Renderer* sdlRenderer, Player* Platplayer, float Score)
 {
 	renderer = sdlRenderer;
 	player = Platplayer;
+	score = Score;
 }
 
 int PlatformManager::init()
@@ -75,7 +76,8 @@ void PlatformManager::scroll()
 {
 	for (auto& plat : platforms)
 	{
-		plat.get()->collider.y -= 0.025f;
+		plat.get()->collider.y -= Utility::offsetY;
+		//plat.get()->collider.y -= 0.025f;
 	}
 }
 
@@ -83,11 +85,14 @@ void PlatformManager::scroll()
 
 void PlatformManager::update()
 {
+	std::cout << score << std::endl;
+
 	for (auto& plat : platforms)
 	{
 		plat->update();
 		if (plat.get()->collider.y < -50)
 		{
+			score += 1;
 			platforms.pop_front();
 			generatePlatform();
 		}

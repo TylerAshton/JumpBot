@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Time.h"
 #include "Player.h"
+#include "Utility.h"
 
 class Platform
 {
