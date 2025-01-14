@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Time.h"
 #include "screenResolution.h"
+#include "Utility.h"
 
 class Player
 {
@@ -74,6 +75,8 @@ public:
 
 private:
 	bool isGrounded;
+
+	bool alive = true;
 
 	float gravity = -1.0f;
 	SDL_FPoint speed = { 248.0f, 1100.0f };

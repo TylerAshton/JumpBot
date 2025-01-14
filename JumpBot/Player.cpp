@@ -33,17 +33,17 @@ void Player::update()
 
 	if (get_playerPos().y <= 0) { isGrounded = true; yVelocity = 0.0f; } else { isGrounded = false; } // :)
 
-	if (input[SDL_Scancode::SDL_SCANCODE_SPACE] && isGrounded)
+	if (input[SDL_Scancode::SDL_SCANCODE_SPACE] && isGrounded && alive)
 	{
 		moveUp();
 		isGrounded = false;
 	}
-	if (input[SDL_Scancode::SDL_SCANCODE_A]) // TODO impliment controls here
+	if (input[SDL_Scancode::SDL_SCANCODE_A] && alive) // TODO impliment controls here
 	{
 		moveLeft();
 		direction = SDL_FLIP_HORIZONTAL;
 	}
-	if (input[SDL_Scancode::SDL_SCANCODE_D])
+	if (input[SDL_Scancode::SDL_SCANCODE_D] && alive)
 	{
 		moveRight();
 		direction = SDL_FLIP_NONE;
@@ -55,6 +55,11 @@ void Player::update()
 	{
 		playerRect.y = screenResolution::get_screenHeight() - 50;
 		Player::applyGravity();
+	}
+
+	if (Utility::startScroll && isGrounded)
+	{
+		alive = false;
 	}
 }
 
