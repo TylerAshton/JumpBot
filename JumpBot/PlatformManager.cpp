@@ -83,7 +83,6 @@ void PlatformManager::scroll()
 
 void PlatformManager::update()
 {
-	std::cout << score << std::endl;
 
 	for (auto& plat : platforms)
 	{
