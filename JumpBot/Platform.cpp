@@ -10,8 +10,21 @@ Platform::Platform(SDL_Renderer* sdlRenderer, Player* playerInstance, SDL_FPoint
 
 int Platform::init()
 {
-	SDL_Surface* image = IMG_Load("Assets/platform.png");
-	texture = SDL_CreateTextureFromSurface(renderer, image);
+	for (int i = 0; i < 8; i++)
+	{
+		std::string num = std::to_string(i);
+
+		std::string filePath = "Assets/platformAnim/sprite_" + num;
+
+		std::string fullFilePath = filePath.append(".png");
+
+		SDL_Surface* image = IMG_Load(fullFilePath.c_str());
+		texture = SDL_CreateTextureFromSurface(renderer, image);
+		platformFrames.push_back(texture);
+	}
+
+	//SDL_Surface* image = IMG_Load("Assets/platform.png");
+	
 
 	collider = { setPos.x, setPos.y, 100, 50 };
 
@@ -21,6 +34,15 @@ int Platform::init()
 
 void Platform::update()
 {
+	if (frameNum < platformFrames.size() - 1)
+	{
+		frameNum += 1;
+	}
+	else
+	{
+		frameNum = 0;
+	}
+
 	checkCollider();
 }
 
@@ -40,7 +62,7 @@ void Platform::render()
 
 	SDL_Rect sourceRect = {100.0f,50.0f};
 
-	SDL_RenderCopyF(renderer, texture, NULL, &offsetRect);
+	SDL_RenderCopyF(renderer, platformFrames[frameNum], NULL, &offsetRect);
 }
 
 void Platform::clean()

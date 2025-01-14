@@ -60,6 +60,7 @@ void Player::update()
 	if (Utility::startScroll && isGrounded)
 	{
 		alive = false;
+		Utility::offsetY = 0;
 	}
 }
 

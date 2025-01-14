@@ -6,6 +6,8 @@
 #include "Time.h"
 #include "Player.h"
 #include "Utility.h"
+#include <vector>
+#include <string>
 
 class Platform
 {
@@ -20,7 +22,10 @@ public:
 	void checkCollider();
 	SDL_FRect collider;
 private:
-	
+	std::vector<SDL_Texture*> platformFrames = {};
+
+	int frameNum = 0;
+
 	SDL_Renderer* renderer = nullptr;
 	SDL_Texture* texture = nullptr;
 	SDL_FRect* playerRect;

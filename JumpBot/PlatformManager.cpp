@@ -17,7 +17,7 @@ int PlatformManager::init()
 	{
 		if (i == 0)
 		{
-			addPlat(std::unique_ptr <Platform>(new Platform(renderer, player, SDL_FPoint{ (float)(rand() % (screenResolution::get_screenWidth() + 1 - playerDim)), (float)200 })));
+			addPlat(std::unique_ptr <Platform>(new Platform(renderer, player, SDL_FPoint{ (float)(rand() % (screenResolution::get_screenWidth() + 1 - playerDim)), (float)150 })));
 			platforms[i]->init();
 		}
 		else
