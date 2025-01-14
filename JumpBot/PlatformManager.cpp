@@ -2,8 +2,6 @@
 #include <cstdlib>
 #include <ctime>
 
-bool startScroll = false;
-
 PlatformManager::PlatformManager(SDL_Renderer* sdlRenderer, Player* Platplayer, float Score)
 {
 	renderer = sdlRenderer;
@@ -60,7 +58,7 @@ void PlatformManager::generatePlatform()
 		newX = (-250 + rand() % 501) + previousX;
 	}
 
-	addPlat(std::unique_ptr <Platform>(new Platform(renderer, player, SDL_FPoint{ (float)newX, (float)((previousY + 75 + rand() % (201))) })));
+	addPlat(std::unique_ptr <Platform>(new Platform(renderer, player, SDL_FPoint{ (float)newX, (float)((previousY + 75 + rand() % (151))) })));
 
 	platforms.back()->init();
 }
@@ -95,15 +93,20 @@ void PlatformManager::update()
 			score += 1;
 			platforms.pop_front();
 			generatePlatform();
+			if ((int)score % 5 == 0 && Utility::offsetY < 0.5f)
+			{
+				Utility::offsetY += 0.0025f;
+			}
 		}
 	}
 
 	if (player->get_playerPos().y > 300)
 	{
-		startScroll = true;
+		Utility::startScroll = true;
 	}
 
-	if (startScroll) {
+	if (Utility::startScroll)
+	{
 		scroll();
 	}
 

@@ -51,9 +51,10 @@ void Player::update()
 
 	applyGravity();
 	applyVelocity();
-	if (playerRect.y >= screenResolution::get_screenHeight())
+	if (playerRect.y >= screenResolution::get_screenHeight() - 50)
 	{
-		playerRect.y = screenResolution::get_screenHeight();
+		playerRect.y = screenResolution::get_screenHeight() - 50;
+		Player::applyGravity();
 	}
 }
 

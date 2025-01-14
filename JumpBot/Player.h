@@ -76,7 +76,7 @@ private:
 	bool isGrounded;
 
 	float gravity = -1.0f;
-	SDL_FPoint speed = { 248.0f, 2000.0f };
+	SDL_FPoint speed = { 248.0f, 1100.0f };
 
 	SDL_RendererFlip direction = SDL_FLIP_NONE;
 
