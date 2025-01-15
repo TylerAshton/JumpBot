@@ -10,6 +10,7 @@
 #include "screenResolution.h"
 #include "Platform.h"
 #include "PlatformManager.h"
+#include "FontRenderer.h"
 
 class GameLoop
 {
@@ -28,14 +29,14 @@ private:
 	SDL_Window* window = nullptr;
 	SDL_Surface* screenSurface = nullptr;
 	SDL_Renderer* renderer = nullptr;
-	//Font goes here
+	std::unique_ptr<FontRenderer> fontRenderer;
 	std::unique_ptr<TiledMap> tiledMap;
 
 	Player* player = nullptr;
 
-	std::unique_ptr <Platform> platform = nullptr;
-	std::unique_ptr <Platform> platform1 = nullptr;
-	std::unique_ptr <Platform> platform2 = nullptr;
+	//std::unique_ptr <Platform> platform = nullptr;
+	//std::unique_ptr <Platform> platform1 = nullptr;
+	//std::unique_ptr <Platform> platform2 = nullptr;
 
 	PlatformManager* platMan = nullptr;
 };

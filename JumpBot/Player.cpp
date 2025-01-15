@@ -61,6 +61,7 @@ void Player::update()
 	{
 		alive = false;
 		Utility::offsetY = 0;
+		gameOver = true;
 	}
 }
 

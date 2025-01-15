@@ -73,13 +73,15 @@ public:
 		return &playerRect;
 	}
 
+	bool gameOver = false;
+
 private:
 	bool isGrounded;
 
 	bool alive = true;
 
 	float gravity = -1.0f;
-	SDL_FPoint speed = { 248.0f, 1250.0f };
+	SDL_FPoint speed = { 248.0f, 1500.0f };
 
 	SDL_RendererFlip direction = SDL_FLIP_NONE;
 

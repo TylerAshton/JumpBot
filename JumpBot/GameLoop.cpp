@@ -38,10 +38,14 @@ int GameLoop::init()
 	player = new Player(renderer, screenResolution::get_screenWidth(), screenResolution::get_screenHeight());
 	player->init();
 
+	fontRenderer = std::unique_ptr<FontRenderer>(new FontRenderer(renderer));
+	fontRenderer->init();
+
 	platMan = new PlatformManager(renderer, player, score);
 	platMan->init();
 
 	tiledMap = std::unique_ptr<TiledMap>(new TiledMap(renderer, "Assets/tmss.png"));
+
 	//tiledMap->init();
 
 	//platform = std::unique_ptr <Platform>(new Platform(renderer, player, SDL_FPoint{0,100}));
@@ -111,10 +115,17 @@ void GameLoop::render()
 	SDL_SetRenderDrawColor(renderer, 18, 53, 36, 255);
 
 	tiledMap->render();
-	platMan->render();
-	//platform->render();
-	player->render();
 	
+	if (player->gameOver)
+	{
+		fontRenderer->render("YOU LOSE!");
+	}
+	else {
+		platMan->render();
+		player->render();
+	}
+	
+
 	SDL_RenderPresent(renderer);
 }
 
@@ -151,7 +162,7 @@ bool GameLoop::keepAlive()
 void GameLoop::clean()
 {
 	tiledMap->clean();
-
+	fontRenderer->clean();
 	delete player;
 	SDL_DestroyWindow(window);
 	SDL_Quit();
