@@ -8,7 +8,7 @@
 class PlatformManager
 {
 public:
-	PlatformManager(SDL_Renderer* sdlRenderer, Player* Platplayer, float Score);
+	PlatformManager(SDL_Renderer* sdlRenderer, Player* Platplayer);
 	//std::vector<std::unique_ptr<Platform>> platforms = {};
 	std::deque<std::unique_ptr<Platform>> platforms = {}; // Using this over vectors that way I can access either end to generate and delete.
 
@@ -20,9 +20,8 @@ public:
 	void generatePlatform();
 
 	void scroll();
-
+	
 private:
-	float score;
 	int previousY;
 	int previousX;
 	int newY;

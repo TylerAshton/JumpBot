@@ -41,7 +41,7 @@ int GameLoop::init()
 	fontRenderer = std::unique_ptr<FontRenderer>(new FontRenderer(renderer));
 	fontRenderer->init();
 
-	platMan = new PlatformManager(renderer, player, score);
+	platMan = new PlatformManager(renderer, player);
 	platMan->init();
 
 	tiledMap = std::unique_ptr<TiledMap>(new TiledMap(renderer, "Assets/tmss.png"));
@@ -118,7 +118,10 @@ void GameLoop::render()
 	
 	if (player->gameOver)
 	{
-		fontRenderer->render("YOU LOSE!");
+		std::string temp = ("SCORE : ");
+		temp += std::to_string(Utility::score);
+		fontRenderer->render("YOU LOSE!", 250);
+		fontRenderer->render(temp, 650);
 	}
 	else {
 		platMan->render();

@@ -15,8 +15,6 @@
 class GameLoop
 {
 public:
-	float score = 0;
-
 	int init();
 
 	void update();

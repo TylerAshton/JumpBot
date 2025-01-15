@@ -10,7 +10,7 @@ class FontRenderer
 public:
 	FontRenderer(SDL_Renderer* sdlRenderer);
 	void init();
-	void render(std::string text);
+	void render(std::string text, int y);
 	void clean();
 private:
 	SDL_Renderer* renderer;

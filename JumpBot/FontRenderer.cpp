@@ -11,7 +11,7 @@ void FontRenderer::init()
 	{
 		std::cout << SDL_GetError() << std::endl;
 	}
-	font = TTF_OpenFont("Assets/FFF_Tusj.ttf", 500);
+	font = TTF_OpenFont("Assets/FFF_Tusj.ttf", 32);
 	if (font == NULL)
 	{
 		std::cout << SDL_GetError() << std::endl;
@@ -21,12 +21,12 @@ void FontRenderer::clean()
 {
 	TTF_CloseFont(font);
 }
-void FontRenderer::render(std::string text)
+void FontRenderer::render(std::string text, int y)
 {
 	SDL_Rect renderRect =
 	{
 		0,
-		400,
+		y,
 		500,
 		100
 	};

@@ -2,11 +2,10 @@
 #include <cstdlib>
 #include <ctime>
 
-PlatformManager::PlatformManager(SDL_Renderer* sdlRenderer, Player* Platplayer, float Score)
+PlatformManager::PlatformManager(SDL_Renderer* sdlRenderer, Player* Platplayer)
 {
 	renderer = sdlRenderer;
 	player = Platplayer;
-	score = Score;
 }
 
 int PlatformManager::init()
@@ -89,10 +88,10 @@ void PlatformManager::update()
 		plat->update();
 		if (plat.get()->collider.y < -50)
 		{
-			score += 1;
+			Utility::score = Utility::score + 1;
 			platforms.pop_front();
 			generatePlatform();
-			if ((int)score % 5 == 0 && Utility::offsetY < 0.5f)
+			if (Utility::score % 5 == 0 && Utility::offsetY < 0.5f)
 			{
 				Utility::offsetY += 0.0025f;
 			}
